@@ -1,0 +1,262 @@
+/* Body spacing and color */ 
+* 
+{ 
+    box-sizing: border-box;
+  }
+    
+  body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #222;
+    background: white;
+  }
+
+
+
+  /* Navigation color*/
+  a {
+    text-decoration: none;
+    color: blue;
+  }
+  a:hover {
+    color: black;
+  }
+
+
+
+   /* Navigation links background*/
+   .main-nav {
+    width: 100%;
+    background: white;
+    min-height: 30px;
+    padding: 10px;
+    position: fixed;
+    text-align: center;
+  }
+
+  /* Navigation spacing */
+  .nav {
+    display: flex;
+    justify-content: space-around;
+    font-weight: 700;
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+
+  /*  Main image  */ 
+  header {
+    text-align: center;
+    background: url('images/csn\ location.jpg') no-repeat top center ;
+    overflow: hidden;
+    padding-top: 120px;
+    background-size: cover;
+    height: 100vh;
+    background-attachment: fixed;
+    
+  }
+  header {
+    line-height: 1.5;
+  }
+
+
+
+
+  .scroll-button {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #007BFF;
+    background-color: transparent;
+    color: #007BFF;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.scroll-button:hover {
+    background-color: #007BFF;
+    color: white;
+}
+
+.scroll-down {
+    bottom: 20px;
+    right: 20px;
+}
+
+.scroll-up {
+    bottom: 90px;
+    right: 20px;
+}
+
+
+
+
+
+/*  style for box (sign in/log in ) */
+  .card {
+    margin: 30px;
+    padding: 30px 40px 40px;
+    max-width: 800px;
+    text-align: left;
+    background: whitesmoke;
+    border-bottom: 4px solid #190ae9;
+    border-radius: 15px;
+    transition: all .5s;
+  }
+  .card:hover {
+    border-color: #f2f609;
+  }
+
+
+  .card3 {
+    margin: 30px;
+    padding: 30px 40px 40px;
+    max-width: 800px;
+    text-align: left;
+    background: white;
+    border-radius: 15px;
+    transition: all .5s;
+  }
+  
+
+  .intro {
+    color: rgb(207, 237, 10);
+    border-bottom:2px solid #222;
+    }
+  
+    .subsection {
+    color: rgb(2, 2, 177);
+  }
+
+
+    /* Styles for larger screens */
+    @media screen and (min-width: 720px) {
+    
+      .flex {
+          display: -ms-flexbox;      /* TWEENER - IE 10 */
+          display: flex; 
+          max-width: 1200px;
+          -ms-flex-pack: distribute;
+          justify-content: space-around;
+          margin: 0 auto;
+      }
+    
+      header {
+        min-height: 470px;
+      }
+    
+      .nav {
+        max-width: 1200px;
+        padding: 0 30px;
+      }
+    
+    
+      main {
+        padding-top: 20px;
+      }
+    
+      main p {
+        line-height: 1.6em;
+      }
+    
+      footer {
+        font-size: 1.3em;
+        max-width: 100%;
+        margin: 40px auto;
+        color: rgb(212, 248, 6);
+      }
+    
+    }
+
+    
+  /* Sytle for login page/ sign up page */
+      form {
+              display: inline-block;
+              text-align: left;
+              border: 1px solid rgb(14, 6, 247);
+              padding: 20px;
+          }
+          label, input {
+              display:flexbox;
+              margin: 20px 0;
+        
+          }
+          input[type="submit"] {
+              margin: 20px 0 0 0;
+              padding: 10px 40px;
+              background-color: rgb(48, 135, 5);
+              color: rgb(248, 248, 250);
+              border: none;
+              border-radius: 10px;
+              cursor: pointer;
+          }
+
+
+
+
+
+  /* Footer */
+
+  footer {
+    width: 100%;
+    min-height: 30px;
+    padding: 20px 0 40px 20px;
+    background-color: rgb(6, 1, 128);
+  }
+  
+  footer .copyright {
+    top: -8px;
+    font-size: .75em;
+  }
+  
+  footer ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  footer ul li {
+    display: inline-block;
+  }
+  
+
+  /* Social media  */
+  a.social {
+    display: inline-block;
+    text-indent: -9999px;
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    background-size: 30px 30px;
+    opacity: .4;
+    transition: all .5s;
+  }
+  a.twitter {
+    background-image: url(images/twitter.svg);
+  }
+  a.linkedin {
+    background-image: url(images/linkedin.svg);
+  }
+  a.social:hover {
+    opacity: 1;
+  }
+  .clearfix {
+    clear: both;
+  }
+
+
+
+
+
+
+
+
