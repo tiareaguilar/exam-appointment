@@ -6,14 +6,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Muli%7CRoboto:400,300,500,700,900" rel="stylesheet">
+
   <style>
       /* Inline CSS for simplicity */
-      .container {
-          max-width: 600px;
+      .main-container {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          gap: 20px;
           margin: auto;
+          max-width: 800px;
           padding: 20px;
-          border: 1px solid #ccc;
-          border-radius: 10px;
+      }
+      .container {
+          flex: 1;
+          padding: 20px;
+          border: 3px solid #000000;
+          border-radius: 20px;
+      }
+      .reservation-box {
+          padding: 10px;
+          width: 150px;
+          border: 3px solid #000000;
+          border-radius: 20px;
+          background-color: #053df6;
+          text-align: center;
+      }
+      .reservation-link {
+          font-weight: bold;
+          color: #fdfeff;
+          text-decoration: none;
+      }
+      .reservation-link:hover {
+          color: #05a0cb;
       }
       .wizard-step {
           display: none;
@@ -29,7 +54,7 @@
       .wizard-buttons button {
           padding: 10px 20px;
           background-color: #007BFF;
-          color: white;
+          color: rgb(255, 255, 255);
           border: none;
           border-radius: 5px;
           cursor: pointer;
@@ -50,53 +75,60 @@
       </ul>
   </div>
 
-  <div class="container">
-      <h2>Appointment</h2>
-      <form id="registrationForm">
-          <!-- Step 1: Personal Information -->
-          <div class="wizard-step active" id="step-1">
-              <label for="location">Location:</label>
-              <select id="location" name="location" required>
-                  <option value="" disabled selected>Select Location</option>
-                  <option value="Charleston">Charleston</option>
-                  <option value="North Las Vegas">North Las Vegas</option>
-                  <option value="Henderson">Henderson</option>
-              </select><br><br>
+  <div class="main-container">
+      <!-- Registration Form -->
+      <div class="container">
+          <h2>Appointment</h2>
+          <form id="registrationForm">
+              <!-- Step 1: Personal Information -->
+              <div class="wizard-step active" id="step-1">
+                  <label for="location">Location:</label>
+                  <select id="location" name="location" required>
+                      <option value="" disabled selected>Select Location</option>
+                      <option value="Charleston">Charleston</option>
+                      <option value="North Las Vegas">North Las Vegas</option>
+                      <option value="Henderson">Henderson</option>
+                  </select><br><br>
 
-              <label for="exams">Exams:</label>
-              <select id="exams" name="exams" required>
-                  <option value="" disabled selected>Select Exam</option>
-                  <option value="cit_129">CIT 129</option>
-                  <option value="cit_260">CIT 260</option>
-                  <option value="cit_180">CIT 180</option>
-                  <option value="cs_202">CS 202</option>
-              </select><br><br>
-               
-              <label for="date">Date:</label>
-              <input type="date" id="date" name="date" required><br><br>
+                  <label for="exams">Exams:</label>
+                  <select id="exams" name="exams" required>
+                      <option value="" disabled selected>Select Exam</option>
+                      <option value="cit_129">Phil 114</option>
+                      <option value="cit_260">Math 181</option>
+                      <option value="cit_180">Acc 201</option>
+                      <option value="cs_202">CS 202</option>
+                  </select><br><br>
+                  
+                  <label for="date">Date:</label>
+                  <input type="date" id="date" name="date" required><br><br>
 
-              <label for="time">Time:</label>
-              <select id="time" name="time" required>
-                  <option value="" disabled selected>Select Time</option>
-                  <option value="8:00 am">8:00am</option>
-                  <option value="9:00 am">9:00am</option>
-                  <option value="10:00 am">10:00am</option>
-                  <option value="11:00 am">11:00am</option>
-                  <option value="12:00 pm">12:00pm</option>
-                  <option value="1:00 pm">1:00pm</option>
-                  <option value="2:00 pm">2:00pm</option>
-                  <option value="3:00 pm">3:00pm</option>
-                  <option value="4:00 pm">4:00pm</option>
-                  <option value="5:00 pm">5:00pm</option>
-              </select><br><br>
-          </div>
+                  <label for="time">Time:</label>
+                  <select id="time" name="time" required>
+                      <option value="" disabled selected>Select Time</option>
+                      <option value="8:00 am">8:00am</option>
+                      <option value="9:00 am">9:00am</option>
+                      <option value="10:00 am">10:00am</option>
+                      <option value="11:00 am">11:00am</option>
+                      <option value="12:00 pm">12:00pm</option>
+                      <option value="1:00 pm">1:00pm</option>
+                      <option value="2:00 pm">2:00pm</option>
+                      <option value="3:00 pm">3:00pm</option>
+                      <option value="4:00 pm">4:00pm</option>
+                      <option value="5:00 pm">5:00pm</option>
+                  </select><br><br>
+              </div>
 
-          <!-- Wizard Buttons -->
-          <div class="wizard-buttons">
-              <button type="button" id="nextButton" onclick="nextStep()">Next</button>
-              <button type="submit" id="submitButton" style="display:none;">Submit</button>
-          </div>
-      </form>
+              <!-- Wizard Buttons -->
+              <div class="wizard-buttons">
+                  <button type="button" id="nextButton" onclick="nextStep()">Submit</button>
+              </div>
+          </form>
+      </div>
+
+      <!-- Small Reservation Box -->
+      <div class="reservation-box">
+          <a href="{{ url_for('reservation') }}" class="reservation-link">Reservations</a>
+      </div>
   </div>
 
   <!-- Footer -->

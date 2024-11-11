@@ -1,109 +1,25 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
-import mysql.connector
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, render_template, request, redirect, session, url_for
+import re
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Set a secret key for sessions
+app.secret_key = "supersecretkey"  # Required for session management
 
-# Database configuration
-db_config = {
-    'host': 'localhost',
-    'user': 'your_mysql_user',          # Replace with your MySQL username
-    'password': 'your_mysql_password',  # Replace with your MySQL password
-    'database': 'exam_system'            # Ensure you have this database created
-}
+# Validation functions
+def is_valid_name(name):
+    return re.fullmatch(r'[a-zA-Z]+', name) is not None
 
-# Connect to MySQL
-def get_db_connection():
-    return mysql.connector.connect(**db_config)
+def is_valid_email(email):
+    return re.fullmatch(r'[0-9]{10}@student\.csn\.edu', email) is not None
 
-# Authentication system
-class StudentAuthSystem:
-    def login(self, username, password):
-        conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
-        user = cursor.fetchone()
+def generate_username(first_name, email):
+    nshe_last_four = email[6:10]  # Extract the last four digits of the NSHE number
+    return first_name.lower() + nshe_last_four
 
-        if not user:
-            cursor.close()
-            conn.close()
-            return "Invalid account. Please check your username."
-        
-        if user["login_attempts"] >= 3:
-            cursor.close()
-            conn.close()
-            return "Account locked. Please contact the admin to reset."
-        
-        # Check the hashed password
-        if check_password_hash(user["password"], password):
-            cursor.execute("UPDATE users SET login_attempts = 0 WHERE username = %s", (username,))
-            conn.commit()
-            message = "Login successful!"
-        else:
-            cursor.execute("UPDATE users SET login_attempts = login_attempts + 1 WHERE username = %s", (username,))
-            conn.commit()
-            message = "Invalid password/account. Please try again."
+def is_valid_username(username, first_name, email):
+    return username == generate_username(first_name, email)
 
-        cursor.close()
-        conn.close()
-        return message
-
-    def register_user(self, username, password):
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        hashed_password = generate_password_hash(password)  # Hash the password for security
-        try:
-            cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (username, hashed_password))
-            conn.commit()
-            message = "Account created successfully!"
-        except mysql.connector.IntegrityError:
-            message = "Username already exists."
-        finally:
-            cursor.close()
-            conn.close()
-        return message
-
-# Exam registration system
-class ExamRegistrationSystem:
-    def register_exam(self, username, exam_name):
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        cursor.execute("SELECT COUNT(*) as count FROM registrations WHERE username = %s", (username,))
-        count = cursor.fetchone()[0]
-
-        if count >= 3:
-            cursor.close()
-            conn.close()
-            return "Maximum registration limit reached. Cannot register for more than 3 exams."
-
-        cursor.execute("INSERT INTO registrations (username, exam_name) VALUES (%s, %s)", (username, exam_name))
-        conn.commit()
-        cursor.close()
-        conn.close()
-        return f"Registration successful for {exam_name}!"
-
-    def view_registered_exams(self, username):
-        conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT exam_name FROM registrations WHERE username = %s", (username,))
-        exams = [row["exam_name"] for row in cursor.fetchall()]
-        cursor.close()
-        conn.close()
-        return exams if exams else "No exams registered."
-
-    def cancel_registration(self, username, exam_name):
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        cursor.execute("DELETE FROM registrations WHERE username = %s AND exam_name = %s", (username, exam_name))
-        conn.commit()
-        cursor.close()
-        conn.close()
-        return f"Registration for {exam_name} canceled."
-
-# Initialize the systems
-auth_system = StudentAuthSystem()
-exam_system = ExamRegistrationSystem()
+def is_valid_password(password, email):
+    return password == email[:10]
 
 # Routes
 @app.route('/')
@@ -112,47 +28,51 @@ def home():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    # Clear any previous session messages at the start
+    session.pop('messages', None)
+
     if request.method == 'POST':
+        messages = []
+
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        email = request.form['email']
         username = request.form['username']
         password = request.form['password']
-        message = auth_system.register_user(username, password)
-        flash(message)
-        if "successfully" in message:
-            return redirect(url_for('login'))
+        
+        # Validation checks and feedback messages
+        if not is_valid_name(first_name):
+            messages.append("First name must only contain letters A-Z")
+        if not is_valid_name(last_name):
+            messages.append("Last name must only contain letters A-Z")
+        if not is_valid_email(email):
+            messages.append("Email must be NSHE#@student.csn.edu")
+        elif not is_valid_username(username, first_name, email):
+            # Updated message to provide format guidance without showing the specific username
+            messages.append("Username must be first name and last four of NSHE number")
+        if not is_valid_password(password, email):
+            messages.append("Password must only contain numbers 0-9")
+        
+        # Store messages in session if there are errors
+        if messages:
+            session['messages'] = messages
+        else:
+            # If all checks pass, redirect without adding a success message
+            return redirect(url_for('home'))
+
     return render_template('signup.html')
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login')
 def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        message = auth_system.login(username, password)
-        if "successful" in message:
-            session['username'] = username
-            flash(message)
-            return redirect(url_for('appointment'))
-        flash(message)
     return render_template('login.html')
 
-@app.route('/appointment', methods=['GET', 'POST'])
+@app.route('/appointment')
 def appointment():
-    if 'username' not in session:
-        flash("Please log in first.")
-        return redirect(url_for('login'))
-    
-    if request.method == 'POST':
-        exam_name = request.form['exams']
-        message = exam_system.register_exam(session['username'], exam_name)
-        flash(message)
-    
-    registered_exams = exam_system.view_registered_exams(session['username'])
-    return render_template('appointment.html', registered_exams=registered_exams)
+    return render_template('appointment.html')
 
-@app.route('/logout')
-def logout():
-    session.pop('username', None)
-    flash("You have been logged out.")
-    return redirect(url_for('login'))
+@app.route('/reservation')
+def reservation():
+    return render_template('reservation.html')
 
 # Run the app
 if __name__ == "__main__":

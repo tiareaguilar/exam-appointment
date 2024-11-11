@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CSN Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Muli%7CRoboto:400,300,500,700,900" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation Header -->
+<div class="main-nav">
+  <ul class="nav">
+    <img src="{{ url_for('static', filename='images/csn logo.png') }}" alt="CSN Logo" class="profile-image">
+    <li><a href="{{ url_for('home') }}">Home</a></li>
+    <li><a href="{{ url_for('appointment') }}">Appointments</a></li>
+  </ul>
+</div>
+<!-- Navigation Header -->
+
+<!-- Scroll Up and Down Buttons -->
+<a href="#top" class="scroll-button scroll-up">↑</a>
+<a href="#login" class="scroll-button scroll-down">↓</a>
+
+<!-- Header Section with Cropped Background -->
+<header>
+   <img src="{{ url_for('static', filename='images/CSN location.jpg') }}" class="profile-image">
+</header>
+
+<style>
+header {
+    background: url('../images/csn location.jpg') no-repeat bottom center;  /* Center the image */
+    background-size: cover;               /* Scale image to cover the header */
+    background-position: fixed -500px;    /* Shift the image up by 50px to crop the top */
+    background-attachment: fixed;         /* Fix the background during scroll */
+    height:fit-content;                       /* Set header height to viewport height */
+    width: 100%;                          /* Ensure it fills full width */
+    overflow:fixed;                    /* Hide overflow */
+}
+</style>
+
+<!-- Locations Section -->
+<main class="flex">
+  <div class="card3">
+    <h1 class="intro">Testing Centers</h1>
+    <h2 class="subsection">Henderson Campus</h2>
+    <p>700 College Dr.<br>Henderson, NV 89002<br>702-651-3000</p>
+    <br>
+    <h2 class="subsection">Charleston Campus</h2>
+    <p>6375 W. Charleston Blvd.<br>Las Vegas, NV 89146<br>702-651-5000</p>
+    <br>
+    <h2 class="subsection">North Las Vegas Campus</h2>
+    <p>3200 East Cheyenne Ave.<br>North Las Vegas, NV 89030<br>702-651-4000</p>
+  </div>
+
+  <!-- Login Form Section -->
+  <section id="login">
+    <div class="card">
+      <h1 class="form">Login</h1>
+      <hr>
+      <form action="{{ url_for('login') }}" method="POST">
+        <label for="username"><strong>Username:</strong></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+        
+        <label for="password"><strong>Password:</strong></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+        
+        <div>
+          <input type="submit" value="Login"><br><br>
+          <a href="{{ url_for('signup') }}">Sign Up</a>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer>
+  <ul>
+    <li><a href="https://x.com/CSNCoyote" target="_blank" class="social twitter">Twitter</a></li>
+    <li><a href="https://www.linkedin.com/school/college-of-southern-nevada/" target="_blank" class="social linkedin">LinkedIn</a></li>
+  </ul>
+  <p class="copyright">&copy; 2024 College of Southern Nevada</p>
+</footer>
+<!-- End Document -->
+
+</body>
+</html>

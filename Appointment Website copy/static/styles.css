@@ -1,262 +1,249 @@
-/* Body spacing and color */ 
-* 
-{ 
-    box-sizing: border-box;
-  }
-    
-  body {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #222;
-    background: white;
-  }
+/* Body spacing and color */
+* {
+  box-sizing: border-box;
+}
 
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;  /* Ensures body fills viewport height */
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  background: white;
+}
 
+/* Main content area should flex to fill available space */
+main {
+  flex: 1;  /* Expands to take up space between header and footer */
+  padding-top: 20px;
+}
 
-  /* Navigation color*/
-  a {
-    text-decoration: none;
-    color: blue;
-  }
-  a:hover {
-    color: black;
-  }
+/* Navigation color */
+a {
+  text-decoration: none;
+  color: blue;
+}
+a:hover {
+  color: rgb(5, 145, 215);
+}
 
+/* Navigation links background */
+.main-nav {
+  width: 100%;
+  background: white;
+  min-height: 30px;
+  padding: 10px;
+  position: fixed;
+  text-align: center;
+}
 
+/* Navigation spacing */
+.nav {
+  display: flex;
+  justify-content: space-around;
+  font-weight: 700;
+  list-style-type: none;
+  margin: 0 auto;
+  padding: 0;
+}
 
-   /* Navigation links background*/
-   .main-nav {
-    width: 100%;
-    background: white;
-    min-height: 30px;
-    padding: 10px;
-    position: fixed;
-    text-align: center;
-  }
+/* Main image */
+header {
+  line-height: 1.5;
+}
 
-  /* Navigation spacing */
-  .nav {
-    display: flex;
-    justify-content: space-around;
-    font-weight: 700;
-    list-style-type: none;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-
-  /*  Main image  */ 
-  header {
-    text-align: center;
-    background: url('images/csn\ location.jpg') no-repeat top center ;
-    overflow: hidden;
-    padding-top: 120px;
-    background-size: cover;
-    height: 100vh;
-    background-attachment: fixed;
-    
-  }
-  header {
-    line-height: 1.5;
-  }
-
-
-
-
-  .scroll-button {
-    position: fixed;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 2px solid #007BFF;
-    background-color: transparent;
-    color: #007BFF;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
+/* Scroll button styling */
+.scroll-button {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #007BFF;
+  background-color: transparent;
+  color: #007BFF;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .scroll-button:hover {
-    background-color: #007BFF;
-    color: white;
+  background-color: #007BFF;
+  color: white;
 }
 
 .scroll-down {
-    bottom: 20px;
-    right: 20px;
+  bottom: 20px;
+  right: 20px;
 }
 
 .scroll-up {
-    bottom: 90px;
-    right: 20px;
+  bottom: 90px;
+  right: 20px;
+}
+
+/* Style for sign in/log in box */
+.card {
+  margin: 30px;
+  padding: 30px 40px 40px;
+  max-width: 400px;
+  text-align: left;
+  background: whitesmoke;
+  border-bottom: 4px solid #190ae9;
+  border-radius: 15px;
+  transition: all .5s;
+}
+
+.card:hover {
+  border-color: #f2f609;
+}
+
+.card3 {
+  margin: 30px;
+  padding: 30px 40px 40px;
+  max-width: 800px;
+  text-align: left;
+  background: whitesmoke;
+  border-radius: 15px;
+  transition: all .5s;
+}
+
+.intro {
+  color: rgb(207, 237, 10);
+  border-bottom: 2px solid #222;
+}
+
+.subsection {
+  color: rgb(2, 2, 177);
+}
+
+/* Styles for larger screens */
+@media screen and (min-width: 720px) {
+  .flex {
+      display: -ms-flexbox;      /* TWEENER - IE 10 */
+      display: flex; 
+      max-width: 1200px;
+      -ms-flex-pack: distribute;
+      justify-content: space-around;
+      margin: 0 auto;
+  }
+
+  header {
+      min-height: 470px;
+  }
+
+  .nav {
+      max-width: 1200px;
+      padding: 0 30px;
+  }
+
+  main p {
+      line-height: 1.6em;
+  }
+}
+
+/* Style for login/sign up page */
+form {
+  display: inline-block;
+  text-align: left;
+  border: 1px solid rgb(14, 6, 247);
+  padding: 20px;
+}
+
+label, input {
+  display: flexbox;
+  margin: 20px 0;
+}
+
+input[type="submit"] {
+  margin: 20px 0 0 0;
+  padding: 10px 40px;
+  background-color: rgb(48, 135, 5);
+  color: rgb(248, 248, 250);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  padding: 20px 0 40px 20px;
+  background-color: rgb(6, 1, 128);
+  color: rgb(212, 248, 6);
+  text-align: center;
+  position: relative;
+  bottom: 0;
+}
+
+/* Footer content */
+footer .copyright {
+  font-size: .75em;
+}
+
+footer ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer ul li {
+  display: inline-block;
+}
+
+/* Social media icons */
+a.social {
+  display: inline-block;
+  text-indent: -9999px;
+  margin-left: 5px;
+  width: 30px;
+  height: 30px;
+  background-size: 30px 30px;
+  opacity: 0.4;
+  transition: all 0.5s;
+}
+
+a.twitter {
+  background-image: url(images/twitter.svg);
+}
+
+a.linkedin {
+  background-image: url(images/linkedin.svg);
+}
+
+a.social:hover {
+  opacity: 1;
+}
+
+.clearfix {
+  clear: both;
 }
 
 
+.flash-messages {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-weight:normal;
+  text-align: center;
+}
 
+.flash-messages ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 
-
-/*  style for box (sign in/log in ) */
-  .card {
-    margin: 30px;
-    padding: 30px 40px 40px;
-    max-width: 800px;
-    text-align: left;
-    background: whitesmoke;
-    border-bottom: 4px solid #190ae9;
-    border-radius: 15px;
-    transition: all .5s;
-  }
-  .card:hover {
-    border-color: #f2f609;
-  }
-
-
-  .card3 {
-    margin: 30px;
-    padding: 30px 40px 40px;
-    max-width: 800px;
-    text-align: left;
-    background: white;
-    border-radius: 15px;
-    transition: all .5s;
-  }
-  
-
-  .intro {
-    color: rgb(207, 237, 10);
-    border-bottom:2px solid #222;
-    }
-  
-    .subsection {
-    color: rgb(2, 2, 177);
-  }
-
-
-    /* Styles for larger screens */
-    @media screen and (min-width: 720px) {
-    
-      .flex {
-          display: -ms-flexbox;      /* TWEENER - IE 10 */
-          display: flex; 
-          max-width: 1200px;
-          -ms-flex-pack: distribute;
-          justify-content: space-around;
-          margin: 0 auto;
-      }
-    
-      header {
-        min-height: 470px;
-      }
-    
-      .nav {
-        max-width: 1200px;
-        padding: 0 30px;
-      }
-    
-    
-      main {
-        padding-top: 20px;
-      }
-    
-      main p {
-        line-height: 1.6em;
-      }
-    
-      footer {
-        font-size: 1.3em;
-        max-width: 100%;
-        margin: 40px auto;
-        color: rgb(212, 248, 6);
-      }
-    
-    }
-
-    
-  /* Sytle for login page/ sign up page */
-      form {
-              display: inline-block;
-              text-align: left;
-              border: 1px solid rgb(14, 6, 247);
-              padding: 20px;
-          }
-          label, input {
-              display:flexbox;
-              margin: 20px 0;
-        
-          }
-          input[type="submit"] {
-              margin: 20px 0 0 0;
-              padding: 10px 40px;
-              background-color: rgb(48, 135, 5);
-              color: rgb(248, 248, 250);
-              border: none;
-              border-radius: 10px;
-              cursor: pointer;
-          }
-
-
-
-
-
-  /* Footer */
-
-  footer {
-    width: 100%;
-    min-height: 30px;
-    padding: 20px 0 40px 20px;
-    background-color: rgb(6, 1, 128);
-  }
-  
-  footer .copyright {
-    top: -8px;
-    font-size: .75em;
-  }
-  
-  footer ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  footer ul li {
-    display: inline-block;
-  }
-  
-
-  /* Social media  */
-  a.social {
-    display: inline-block;
-    text-indent: -9999px;
-    margin-left: 5px;
-    width: 30px;
-    height: 30px;
-    background-size: 30px 30px;
-    opacity: .4;
-    transition: all .5s;
-  }
-  a.twitter {
-    background-image: url(images/twitter.svg);
-  }
-  a.linkedin {
-    background-image: url(images/linkedin.svg);
-  }
-  a.social:hover {
-    opacity: 1;
-  }
-  .clearfix {
-    clear: both;
-  }
-
-
-
-
-
-
-
+.flash-messages li {
+  margin: 5px 0;
+}
 

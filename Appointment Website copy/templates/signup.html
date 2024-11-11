@@ -18,11 +18,24 @@
   </ul>
 </div>
 
-<!-- Sign Up Form -->
+<!-- Main Content -->
 <main class="flex">
   <div class="card">
       <h1 class="form">Sign Up</h1>
       <hr>
+      
+      <!-- Display Session Messages for Feedback directly above form -->
+      {% if session.get('messages') %}
+        <div class="flash-messages">
+          <ul>
+            {% for message in session['messages'] %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <!-- Sign Up Form -->
       <form action="{{ url_for('signup') }}" method="POST">
           <label for="first_name"><strong>First Name:</strong></label>
           <input type="text" id="first_name" placeholder="Enter First Name" name="first_name" required>

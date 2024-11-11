@@ -24,22 +24,6 @@
           border: 3px solid #000000;
           border-radius: 20px;
       }
-      .reservation-box {
-          padding: 10px;
-          width: 150px;
-          border: 3px solid #000000;
-          border-radius: 20px;
-          background-color: #053df6;
-          text-align: center;
-      }
-      .reservation-link {
-          font-weight: bold;
-          color: #fdfeff;
-          text-decoration: none;
-      }
-      .reservation-link:hover {
-          color: #05a0cb;
-      }
       .wizard-step {
           display: none;
       }
@@ -53,7 +37,7 @@
       }
       .wizard-buttons button {
           padding: 10px 20px;
-          background-color: #007BFF;
+          background-color: #f50707;
           color: rgb(255, 255, 255);
           border: none;
           border-radius: 5px;
@@ -78,32 +62,24 @@
   <div class="main-container">
       <!-- Registration Form -->
       <div class="container">
-          <h2>Appointment</h2>
+          <h2>Appointments</h2>
           <form id="registrationForm">
               <!-- Step 1: Personal Information -->
               <div class="wizard-step active" id="step-1">
-                  <label for="location">Location:</label>
-                  <select id="location" name="location" required>
-                      <option value="" disabled selected>Select Location</option>
+                  <label for="Reservations">Reservations:</label>
+                  <select id="Reservations" name="Reservations" required>
+                      <option value="" disabled selected>Appointments</option>
                       <option value="Charleston">Charleston</option>
                       <option value="North Las Vegas">North Las Vegas</option>
                       <option value="Henderson">Henderson</option>
                   </select><br><br>
-
-
               </div>
 
               <!-- Wizard Buttons -->
               <div class="wizard-buttons">
-                  <button type="button" id="nextButton" onclick="nextStep()">Next</button>
-                  <button type="submit" id="submitButton" style="display:none;">Submit</button>
+                  <button type="button" id="nextButton" onclick="nextStep()">Cancel</button>
               </div>
           </form>
-      </div>
-
-      <!-- Small Reservation Box -->
-      <div class="reservation-box">
-          <a href="/reservations" class="reservation-link">Reservations</a>
       </div>
   </div>
 
