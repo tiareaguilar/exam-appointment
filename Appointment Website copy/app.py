@@ -24,7 +24,7 @@ def is_valid_password(password, email):
 # Routes
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('homepage.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
